@@ -6,7 +6,9 @@ class AppRouter {
   final Router _router = Router();
   final AppAPI _appAPI = AppAPI();
 
-  Router get router => _router;
+  Router get router => _hostedAPI();
 
-  Router hostedAPI() => _router..get(AppRoutes.home, _appAPI.rootHandler);
+  Router _hostedAPI() => _router
+    ..get(AppRoutes.home, _appAPI.rootHandler)
+    ..post(AppRoutes.addProduct, _appAPI.addProduct);
 }
