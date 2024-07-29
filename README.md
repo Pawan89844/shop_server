@@ -1,23 +1,23 @@
-### SHOP SERVER API's
+## SHOP SERVER API's
 
 A core Dart REST API for Shop-App.
 
-### FEAUTURES
+## FEAUTURES
 
-## AUTHENTICATION
+### AUTHENTICATION
 
     - SignUp
     - Login
     - Forget Password
 
-## Products
+### Products
 
     - Get Products
     - Add Products
     - Remove Products
     - Update Products
 
-## CART
+### CART
 
     - Get Products
     - Add Products
