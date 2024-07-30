@@ -1,5 +1,6 @@
 import 'package:shelf/shelf.dart';
 import 'package:shop_server/handler/products/add_product.dart';
+import 'package:shop_server/handler/products/get_products.dart';
 import 'package:shop_server/handler/products/product.dart';
 
 class AppAPI {
@@ -7,8 +8,8 @@ class AppAPI {
     return Response.ok('Hello, World!\n');
   }
 
-  Response getProducts(Request req) {
-    return Response.ok('');
+  Future<Response> getProducts(Request req) async {
+    return await Product().getProducts(req);
   }
 
   Future<Response> addProduct(Request req) async {

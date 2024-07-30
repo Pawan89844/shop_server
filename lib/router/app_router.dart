@@ -10,5 +10,6 @@ class AppRouter {
 
   Router _hostedAPI() => _router
     ..get(AppRoutes.home, _appAPI.rootHandler)
-    ..post(AppRoutes.addProduct, _appAPI.addProduct);
+    ..post(AppRoutes.addProduct, _appAPI.addProduct)
+    ..get(AppRoutes.getProducts, _appAPI.getProducts);
 }

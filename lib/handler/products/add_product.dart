@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:shelf/shelf.dart';
 import 'package:shop_server/constants/app_constants.dart';
 import 'package:shop_server/model/product/product_model.dart';
@@ -14,10 +13,11 @@ class AddProduct {
   Future<Map<String, dynamic>> _insertToDB(String req) async {
     final userInputJson = jsonDecode(req);
     final userInput = ProductModel.fromUser(userInputJson);
-    final document = ProductModel(
-            prodImage: userInput.prodImage, prodName: userInput.prodName)
-        .toJson();
-    final res = await _dbService.db.collection('Products').insert(document);
+    final model = ProductModel(
+        prodImage: userInput.prodImage, prodName: userInput.prodName);
+    final document = model.toJson();
+    final collection = _dbService.db.collection(AppString.PRODUCT);
+    final res = await collection.insert(document);
     return res;
   }
 
@@ -51,6 +51,7 @@ class AddProduct {
       final isSuccess = await _openDB();
       return _isSuccess(isSuccess);
     }
-    return Response.badRequest(body: _message(false, AppString.badRequest));
+    final message = AppString.badRequest(AppString.POST);
+    return Response.badRequest(body: _message(false, message));
   }
 }
