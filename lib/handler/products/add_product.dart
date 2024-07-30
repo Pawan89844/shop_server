@@ -14,7 +14,9 @@ class AddProduct {
     final userInputJson = jsonDecode(req);
     final userInput = ProductModel.fromUser(userInputJson);
     final model = ProductModel(
-        prodImage: userInput.prodImage, prodName: userInput.prodName);
+        prodImage: userInput.prodImage,
+        prodName: userInput.prodName,
+        prodDetails: userInput.prodDetails);
     final document = model.toJson();
     final collection = _dbService.db.collection(AppString.PRODUCT);
     final res = await collection.insert(document);

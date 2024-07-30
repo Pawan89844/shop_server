@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields
+
 import 'dart:convert';
 import 'dart:developer';
 
@@ -50,7 +52,6 @@ class GetProducts {
 
   Future<Response> getProducts() async {
     if (request.method == AppString.GET) {
-      // isProduct = true;
       final products = await _openDB();
       return _isSuccess(products);
     }
