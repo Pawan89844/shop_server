@@ -1,3 +1,4 @@
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:shop_server/model/product/product_details_model.dart';
 
 class ProductModel {
@@ -13,15 +14,32 @@ class ProductModel {
       required this.prodDetails});
 
   factory ProductModel.fromUser(Map<String, dynamic> json) {
-    print('Object Id: ${json['_id'].toString().runtimeType}');
     return ProductModel(
-        id: json['_id'].toString(),
         prodName: json['prodName'],
         prodImage: json['prodImage'],
         prodDetails: ProductDetailsModel.fromDB(json['prodDetails']));
   }
 
-  Map<String, dynamic> toJson() => {
+  factory ProductModel.fromDB(Map<String, dynamic> json) {
+    final id = (json['_id'] as ObjectId).id;
+    String objectId = id.hexString;
+    return ProductModel(
+        id: objectId,
+        prodName: json['prodName'],
+        prodImage: json['prodImage'],
+        prodDetails: ProductDetailsModel.fromDB(json['prodDetails']));
+  }
+
+  Map<String, dynamic> toJson() => id == null ? _withoutId() : _withId();
+
+  Map<String, dynamic> _withoutId() => {
+        'prodName': prodName,
+        'prodImage': prodImage,
+        'prodDetails': prodDetails.toJson()
+      };
+
+  Map<String, dynamic> _withId() => {
+        'prodId': id,
         'prodName': prodName,
         'prodImage': prodImage,
         'prodDetails': prodDetails.toJson()
