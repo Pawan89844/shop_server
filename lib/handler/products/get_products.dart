@@ -15,8 +15,6 @@ class GetProducts {
   GetProducts(this.request);
 
   List<ProductModel> _products = [];
-  // List prod = [];
-  // bool isProduct = false;
 
   String _message(bool isSuccess, dynamic message) {
     return JsonEncoder.withIndent('  ')
@@ -27,7 +25,8 @@ class GetProducts {
     final collection = _dbService.db.collection(AppString.PRODUCT);
     List<ProductModel> prod = [];
     for (final products in await collection.find().toList()) {
-      prod.add(ProductModel.fromUser(products));
+      final data = ProductModel.fromDB(products);
+      prod.add(data);
     }
     return prod;
   }
@@ -40,12 +39,12 @@ class GetProducts {
     return _products;
   }
 
-  Response _isSuccess(List<ProductModel>? isSuccess) {
-    if (isSuccess != null) {
+  Response _isSuccess(List<ProductModel> isSuccess) {
+    if (isSuccess.isNotEmpty) {
       return Response.ok(_message(true, isSuccess),
           headers: AppString.defaultHeader);
     } else {
-      return Response.ok(_message(true, AppString.productFailed),
+      return Response.ok(_message(true, isSuccess),
           headers: AppString.defaultHeader);
     }
   }
