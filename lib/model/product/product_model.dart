@@ -17,7 +17,8 @@ class ProductModel {
     return ProductModel(
         prodName: json['prodName'],
         prodImage: json['prodImage'],
-        prodDetails: ProductDetailsModel.fromDB(json['prodDetails']));
+        prodDetails: ProductDetailsModel.fromUser(
+            json['prodDetails'], json['prodName']));
   }
 
   factory ProductModel.fromDB(Map<String, dynamic> json) {
@@ -27,7 +28,8 @@ class ProductModel {
         id: objectId,
         prodName: json['prodName'],
         prodImage: json['prodImage'],
-        prodDetails: ProductDetailsModel.fromDB(json['prodDetails']));
+        prodDetails: ProductDetailsModel.fromDB(json['prodDetails'],
+            prodId: objectId, prodName: json['prodName']));
   }
 
   Map<String, dynamic> toJson() => id == null ? _withoutId() : _withId();
@@ -42,6 +44,6 @@ class ProductModel {
         'prodId': id,
         'prodName': prodName,
         'prodImage': prodImage,
-        'prodDetails': prodDetails.toJson()
+        'prodDetails': prodDetails.jsonForUser()
       };
 }
