@@ -4,4 +4,5 @@ class AppRoutes {
   static const String addProduct = '/addProduct';
   static const String removeProduct = '/removeProduct';
   static const String updateProduct = '/updateProduct';
+  static const String addToCart = '/addToCart';
 }

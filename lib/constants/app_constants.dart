@@ -18,4 +18,5 @@ class AppString {
 
   /// DB Collections
   static const String PRODUCT = 'Products';
+  static const String CART = 'Cart';
 }

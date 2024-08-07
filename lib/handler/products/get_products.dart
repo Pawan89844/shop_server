@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_final_fields
 
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:shelf/shelf.dart';
 import 'package:shop_server/constants/app_constants.dart';
@@ -12,9 +11,13 @@ import '../../service/db_service.dart';
 class GetProducts {
   final DBService _dbService = DBService();
   final Request request;
-  GetProducts(this.request);
+  final String collection;
+  GetProducts(this.request, {this.collection = AppString.PRODUCT});
 
   List<ProductModel> _products = [];
+
+  // Getters
+  Future<List<ProductModel>> get products => _openDB();
 
   String _message(bool isSuccess, dynamic message) {
     return JsonEncoder.withIndent('  ')
@@ -22,7 +25,7 @@ class GetProducts {
   }
 
   Future<List<ProductModel>> _getProductsDB() async {
-    final collection = _dbService.db.collection(AppString.PRODUCT);
+    final collection = _dbService.db.collection(this.collection);
     List<ProductModel> prod = [];
     for (final products in await collection.find().toList()) {
       final data = ProductModel.fromDB(products);
