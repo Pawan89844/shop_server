@@ -11,6 +11,7 @@ class AppString {
 
   static const String productAdded = 'Product Successfully added';
   static const String productFailed = 'Oops! Something went wrong';
+  static const String cartProductAdded = 'Product Successfully added to cart';
 
   /// Bad Request error
   static String badRequest(String method) =>
