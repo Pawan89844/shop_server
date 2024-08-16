@@ -9,7 +9,7 @@ class AppString {
 
   // PRODUCTS
 
-  static const String productAdded = 'Product Successfully added to cart';
+  static const String productAdded = 'Product Successfully added';
   static const String productFailed = 'Oops! Something went wrong';
 
   /// Bad Request error
