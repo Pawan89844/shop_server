@@ -13,11 +13,14 @@ class AddCart {
 
   AddCart(this.request);
 
-  List<CartModel> _cart = [];
-
-  void addProduct() async {
+  Future<dynamic> _openDB() async {
     final reqUser = await request.readAsString();
     final jsonDe = jsonDecode(reqUser);
+    return jsonDe;
+  }
+
+  void addProduct() async {
+    final jsonDe = await _openDB();
     await _service.initialize();
     if (_service.db.isConnected) {
       final products = await GetProducts(request).products;
@@ -28,4 +31,8 @@ class AddCart {
       await _service.db.collection(AppString.CART).insert(cart);
     }
   }
+
+  // Future<Request> addProduct() async {
+  //   if (request.method == AppString.POST) {}
+  // }
 }
