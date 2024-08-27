@@ -1,5 +1,6 @@
 class AppString {
-  static const String dbUrl = 'mongodb://localhost:27017/shop';
+  // static const String dbUrl = 'mongodb://localhost:27017/shop';
+  static const String dbUrl = 'mongodb://192.168.101.11:27017/shop';
 
   static const String POST = 'POST';
   static const String GET = 'GET';
